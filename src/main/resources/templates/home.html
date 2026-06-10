@@ -35,7 +35,8 @@
 
         <div class="products-grid" th:if="${products != null and !products.isEmpty()}">
             <div class="product-card" th:each="product : ${products}">
-                <img th:src="@{'/uploads/' + ${product.imageUrl}}">
+                <img th:src="@{/uploads/{file}(file=${product.imageUrl})}"
+                     th:alt="${product.productName}">
                 <h4 th:text="${product.productName}"></h4>
                 <p th:text="${product.description}"></p>
                 <p class="price" th:text="${product.price} + ' VNĐ'"></p>
