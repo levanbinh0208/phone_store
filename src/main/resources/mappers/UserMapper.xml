@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.phone_store.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="org.example.phone_store.entity.User">
+        <id     column="UserId"       property="userId"/>
+        <result column="FullName"     property="fullName"/>
+        <result column="Email"        property="email"/>
+        <result column="PasswordHash" property="passwordHash"/>
+        <result column="Phone"        property="phone"/>
+        <result column="Username"     property="userName"/>
+        <result column="Address"      property="address"/>
+        <result column="RoleName"     property="roleName"/>
+        <result column="CreatedAt"    property="createdAt"/>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="UserResultMap">
+        SELECT UserId, FullName, Email, PasswordHash, Phone, Address, RoleName, CreatedAt
+        FROM Users
+        WHERE Username = #{username}
+    </select>
+
+</mapper>

@@ -1,0 +1,71 @@
+
+CREATE DATABASE PhoneStore;
+GO
+
+USE PhoneStore;
+GO
+
+-- Danh mục sản phẩm
+CREATE TABLE Categories (
+    CategoryId INT IDENTITY(1,1) PRIMARY KEY,
+    CategoryName NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(500)
+);
+
+-- Sản phẩm
+CREATE TABLE Products (
+    ProductId INT IDENTITY(1,1) PRIMARY KEY,
+    ProductName NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(MAX),
+    Price DECIMAL(18,2) NOT NULL,
+    Quantity INT NOT NULL DEFAULT 0,
+    ImageUrl NVARCHAR(500),
+    CategoryId INT,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+
+    CONSTRAINT FK_Product_Category
+        FOREIGN KEY (CategoryId)
+        REFERENCES Categories(CategoryId)
+);
+
+-- Người dùng
+CREATE TABLE Users (
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    FullName NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(150) UNIQUE NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Phone NVARCHAR(20),
+    Address NVARCHAR(255),
+    RoleName NVARCHAR(20) DEFAULT 'CUSTOMER',
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+-- Đơn hàng
+CREATE TABLE Orders (
+    OrderId INT IDENTITY(1,1) PRIMARY KEY,
+    UserId INT NOT NULL,
+    TotalAmount DECIMAL(18,2) NOT NULL,
+    Status NVARCHAR(30) DEFAULT 'PENDING',
+    OrderDate DATETIME DEFAULT GETDATE(),
+
+    CONSTRAINT FK_Order_User
+        FOREIGN KEY (UserId)
+        REFERENCES Users(UserId)
+);
+
+-- Chi tiết đơn hàng
+CREATE TABLE OrderDetails (
+    OrderDetailId INT IDENTITY(1,1) PRIMARY KEY,
+    OrderId INT NOT NULL,
+    ProductId INT NOT NULL,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(18,2) NOT NULL,
+
+    CONSTRAINT FK_OrderDetail_Order
+        FOREIGN KEY (OrderId)
+        REFERENCES Orders(OrderId),
+
+    CONSTRAINT FK_OrderDetail_Product
+        FOREIGN KEY (ProductId)
+        REFERENCES Products(ProductId)
+);
