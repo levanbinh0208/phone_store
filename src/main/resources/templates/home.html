@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Store - Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/home.css}">
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <h1>Phone Store</h1>
+        <nav>
+            <a th:href="@{/home}">Trang chủ</a>
+            <a th:href="@{/products}">Sản phẩm</a>
+            <a th:href="@{/cart}">Giỏ hàng</a>
+            <span th:if="${session.fullName}" th:text="${session.fullName}"></span>
+            <a th:href="@{/logout}" th:if="${session.fullName}">Đăng xuất</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="search-bar">
+        <form th:action="@{/home}" method="get">
+            <input type="text" name="search" th:value="${searchTerm}"
+                   placeholder="Tìm kiếm sản phẩm..." />
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+
+    <section class="featured-products">
+        <h3 th:if="${searchTerm}" th:text="'Kết quả tìm kiếm cho: ' + ${searchTerm}"></h3>
+        <h3 th:if="${searchTerm == null}">Sản phẩm nổi bật</h3>
+
+        <div class="products-grid" th:if="${products != null and !products.isEmpty()}">
+            <div class="product-card" th:each="product : ${products}">
+                <img th:src="@{'/uploads/' + ${product.imageUrl}}">
+                <h4 th:text="${product.productName}"></h4>
+                <p th:text="${product.description}"></p>
+                <p class="price" th:text="${product.price} + ' VNĐ'"></p>
+                <button>Thêm vào giỏ</button>
+            </div>
+        </div>
+
+        <p th:if="${products.isEmpty()}" class="no-result">Không tìm thấy sản phẩm nào!</p>
+    </section>
+</main>
+</body>
+</html>

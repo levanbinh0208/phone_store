@@ -1,0 +1,39 @@
+package org.example.phone_store.service;
+
+import org.example.phone_store.entity.Product;
+import org.example.phone_store.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ProductService {
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    public List<Product> getAllProducts() {
+        return productMapper.getAllProducts();
+    }
+
+    public List<Product> searchProducts(String keyword) {
+        return productMapper.searchProducts(keyword);
+    }
+
+    public Product getProductById(Integer productId) {
+        return productMapper.getProductById(productId);
+    }
+
+    public void saveProduct(Product product) {
+        if (product.getProductId() == null) {
+            productMapper.insertProduct(product);
+        } else {
+            productMapper.updateProduct(product);
+        }
+    }
+
+    public void deleteProduct(Integer productId) {
+        productMapper.deleteProduct(productId);
+    }
+}

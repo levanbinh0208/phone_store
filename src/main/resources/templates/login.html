@@ -53,12 +53,10 @@
   </div>
 
   <script>
-    // Hiện thông báo lỗi nếu URL có ?error=true
     if (new URLSearchParams(window.location.search).get('error') === 'true') {
       document.getElementById('error-msg').style.display = 'block';
     }
 
-    // Hiện / ẩn mật khẩu
     function togglePwd() {
       const input = document.getElementById('password');
       input.type = input.type === 'password' ? 'text' : 'password';

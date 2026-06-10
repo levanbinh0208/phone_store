@@ -1,0 +1,23 @@
+package org.example.phone_store.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.example.phone_store.entity.Product;
+
+import java.util.List;
+
+@Mapper
+public interface ProductMapper {
+
+    List<Product> getAllProducts();
+
+    List<Product> searchProducts(@Param("keyword") String keyword);
+
+    Product getProductById(@Param("productId") Integer productId);
+
+    void insertProduct(Product product);
+
+    void updateProduct(Product product);
+
+    void deleteProduct(@Param("productId") Integer productId);
+}
