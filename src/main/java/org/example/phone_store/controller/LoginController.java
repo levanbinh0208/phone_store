@@ -37,10 +37,6 @@ public class LoginController {
             return "login";
         }
 
-        if (session.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
-
         User user = userService.login(username, password);
 
         if (user == null) {

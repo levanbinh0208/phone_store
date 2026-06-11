@@ -23,6 +23,13 @@
         ORDER BY CreatedAt DESC
     </select>
 
+    <select id="getAllProductsHot" resultMap="ProductResultMap">
+        SELECT ProductId, ProductName, Description, Price, Quantity,
+               ImageUrl, CategoryId, CreatedAt
+        FROM Products WHERE IsFeatured = 1
+        ORDER BY CreatedAt DESC
+    </select>
+
     <select id="searchProducts" resultMap="ProductResultMap">
         SELECT ProductId, ProductName, Description, Price, Quantity,
                ImageUrl, CategoryId, CreatedAt

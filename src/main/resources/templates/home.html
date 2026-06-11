@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Store - Trang chủ</title>
-    <link rel="stylesheet" th:href="@{/home.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
 </head>
 <body>
 <header>
@@ -14,7 +14,35 @@
             <a th:href="@{/home}">Trang chủ</a>
             <a th:href="@{/products}">Sản phẩm</a>
             <a th:href="@{/cart}">Giỏ hàng</a>
-            <span th:if="${session.fullName}" th:text="${session.fullName}"></span>
+            <div class="user-menu" th:if="${session.fullName}">
+                <img th:src="@{/uploads/{file}(file=${session.avatarUrl})}"
+                     alt="Avatar"
+                     class="avatar">
+                <span id="userNameBtn"
+                      class="user-name"
+                      th:text="${session.fullName}">
+                </span>
+
+                <div id="profilePopup" class="profile-popup">
+                    <form th:action="@{/change-password}" method="post">
+                        <h4>Đổi mật khẩu</h4>
+
+                        <input type="password"
+                               name="oldPassword"
+                               placeholder="Mật khẩu cũ"
+                               required>
+
+                        <input type="password"
+                               name="newPassword"
+                               placeholder="Mật khẩu mới"
+                               required>
+
+                        <button type="submit">
+                            Cập nhật
+                        </button>
+                    </form>
+                </div>
+            </div>
             <a th:href="@{/logout}" th:if="${session.fullName}">Đăng xuất</a>
         </nav>
     </div>
@@ -69,6 +97,31 @@
                 alert('Có lỗi xảy ra, vui lòng thử lại.');
             });
     }
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const btn = document.getElementById("userNameBtn");
+        const popup = document.getElementById("profilePopup");
+
+        if (!btn || !popup) return;
+
+        btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+
+            popup.style.display =
+                popup.style.display === "block"
+                    ? "none"
+                    : "block";
+        });
+
+        popup.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+
+    });
 </script>
 </body>
 </html>

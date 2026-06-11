@@ -198,3 +198,48 @@ main {
         justify-content: center;
     }
 }
+
+
+.user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.profile-popup {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.profile-popup input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.profile-popup button {
+    width: 100%;
+    padding: 8px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}

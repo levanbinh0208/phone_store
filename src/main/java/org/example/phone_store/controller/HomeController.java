@@ -31,7 +31,7 @@ public class HomeController {
             products = productService.searchProducts(search.trim());
             model.addAttribute("searchTerm", search.trim());
         } else {
-            products = productService.getAllProducts();
+            products = productService.getAllProductsHot();
         }
 
         model.addAttribute("products", products);

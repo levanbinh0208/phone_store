@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Xác nhận đơn hàng</h2>
+
+<form th:action="@{/checkout}" method="post">
+
+    <label>Người nhận</label>
+    <input type="text" name="fullName" required>
+
+    <label>Số điện thoại</label>
+    <input type="text" name="phone" required>
+
+    <label>Địa chỉ giao hàng</label>
+    <textarea name="address" required></textarea>
+
+    <p>
+        Tổng tiền:
+        <strong th:text="${total} + ' VNĐ'"></strong>
+    </p>
+
+    <button type="submit">
+        Đặt hàng
+    </button>
+
+</form>
+</body>
+</html>

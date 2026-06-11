@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Store - Giỏ hàng</title>
-    <link rel="stylesheet" th:href="@{/home.css}">
-    <link rel="stylesheet" th:href="@{/cart.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" th:href="@{/css/toast.css}">
 </head>
 <body>
+<div th:replace="~{fragments/toast :: toast}"></div>
 <header>
     <div class="header-content">
         <h1>Phone Store</h1>
@@ -57,7 +59,11 @@
                 </td>
                 <td th:text="${#numbers.formatInteger(item.product.price * item.quantity, 0, 'POINT')} + ' VNĐ'"></td>
                 <td>
-                    <a th:href="@{/cart/remove/{id}(id=${item.product.productId})}" class="btn-remove">Xóa</a>
+                    <a th:href="@{/cart/remove/{id}(id=${item.product.productId})}"
+                       class="btn-remove"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
+                        Xóa
+                    </a>
                 </td>
             </tr>
             </tbody>
@@ -70,5 +76,6 @@
         </div>
     </div>
 </main>
+<script th:src="@{/js/toast.js}"></script>
 </body>
 </html>

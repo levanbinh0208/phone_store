@@ -79,3 +79,22 @@ CREATE TABLE OrderDetails (
         FOREIGN KEY (ProductId)
         REFERENCES Products(ProductId)
 );
+
+-- Biến lưu sản phẩm nột bật k do admin quyết đinh
+ALTER TABLE Products
+ADD IsFeatured BIT DEFAULT 0;
+
+ALTER TABLE Users
+ADD AvatarUrl NVARCHAR(255) NULL;
+
+ALTER TABLE Orders
+ADD ReceiverName NVARCHAR(100);
+
+ALTER TABLE Orders
+ADD Phone NVARCHAR(20);
+
+ALTER TABLE Orders
+ADD ShippingAddress NVARCHAR(255);
+
+ALTER TABLE Orders
+ADD PaymentMethod NVARCHAR(20);

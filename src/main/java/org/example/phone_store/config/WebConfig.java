@@ -16,7 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/cart/**",
                         "/checkout/**",
                         "/order/**",
-                        "/profile/**"
+                        "/profile/**",
+                        "/home/**"
                 );
     }
 }

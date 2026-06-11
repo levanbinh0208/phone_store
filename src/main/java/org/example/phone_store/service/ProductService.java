@@ -17,6 +17,10 @@ public class ProductService {
         return productMapper.getAllProducts();
     }
 
+    public List<Product> getAllProductsHot() {
+        return productMapper.getAllProductsHot();
+    }
+
     public List<Product> searchProducts(String keyword) {
         return productMapper.searchProducts(keyword);
     }

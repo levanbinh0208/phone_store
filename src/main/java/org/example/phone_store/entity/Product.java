@@ -15,6 +15,7 @@ public class Product {
     private String imageUrl;
     private Integer categoryId;
     private LocalDateTime createdAt;
+    private Boolean isFeatured;
 
     public String getImageUrl() {
         return imageUrl;
