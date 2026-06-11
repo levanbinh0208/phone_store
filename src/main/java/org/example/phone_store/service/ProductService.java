@@ -33,7 +33,13 @@ public class ProductService {
         }
     }
 
+    public Product getById(Integer productId) {
+        return productMapper.findById(productId);
+    }
+
     public void deleteProduct(Integer productId) {
         productMapper.deleteProduct(productId);
     }
+
+    public List<Product> getProductsByCategory(Integer categoryId) { return productMapper.getProductsByCategory(categoryId); }
 }

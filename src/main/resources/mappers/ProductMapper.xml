@@ -61,4 +61,15 @@
         WHERE ProductId = #{productId}
     </delete>
 
+    <select id="getProductsByCategory" resultMap="ProductResultMap">
+        SELECT * FROM Products
+        WHERE CategoryId = #{categoryId}
+        ORDER BY CreatedAt DESC
+    </select>
+
+    <select id="findById" resultMap="ProductResultMap">
+        SELECT ProductId, ProductName, Description, Price, Quantity, ImageUrl, CategoryId, CreatedAt
+        FROM Products
+        WHERE ProductId = #{productId}
+    </select>
 </mapper>

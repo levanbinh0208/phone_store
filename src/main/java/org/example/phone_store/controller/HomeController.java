@@ -1,5 +1,6 @@
 package org.example.phone_store.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.phone_store.entity.Product;
 import org.example.phone_store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,11 @@ public class HomeController {
     @GetMapping({"/", "/home"})
     public String showHome(
             @RequestParam(value = "search", required = false) String search,
-            Model model) {
+            HttpSession session, Model model) {
 
+        if (session.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
         List<Product> products;
 
         if (search != null && !search.trim().isEmpty()) {

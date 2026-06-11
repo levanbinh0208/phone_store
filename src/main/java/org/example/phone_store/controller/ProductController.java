@@ -1,6 +1,7 @@
 package org.example.phone_store.controller;
 
 import org.example.phone_store.entity.Product;
+import org.example.phone_store.mapper.ProductMapper;
 import org.example.phone_store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -21,6 +23,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     private final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
@@ -120,5 +125,35 @@ public class ProductController {
         productService.deleteProduct(id);
         redirectAttributes.addFlashAttribute("success", "Xóa sản phẩm thành công!");
         return "redirect:/admin/products";
+    }
+
+    @GetMapping("/products")
+    public String productsPage(@RequestParam(required = false) String search,
+                               @RequestParam(required = false) Integer categoryId,
+                               Model model) {
+
+        List<Product> products;
+        if (search != null && !search.trim().isEmpty()) {
+            products = productService.searchProducts(search.trim());
+            model.addAttribute("searchTerm", search);
+        } else if (categoryId != null) {
+            products = productService.getProductsByCategory(categoryId);
+            model.addAttribute("categoryId", categoryId);
+        } else {
+            products = productService.getAllProducts();
+        }
+
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+    @GetMapping("/products/{id}")
+    public String productDetail(@PathVariable Integer id, Model model) {
+        Product product = productService.getProductById(id);
+        if (product == null) {
+            return "redirect:/products";
+        }
+        model.addAttribute("product", product);
+        return "product-detail";
     }
 }

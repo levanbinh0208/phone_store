@@ -20,4 +20,8 @@ public interface ProductMapper {
     void updateProduct(Product product);
 
     void deleteProduct(@Param("productId") Integer productId);
+
+    List<Product> getProductsByCategory(@Param("categoryId") Integer categoryId);
+
+    Product findById(@Param("productId") Integer productId);
 }
